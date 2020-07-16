@@ -8,7 +8,6 @@ import "../pages/index.css";
 
 (function() {
 
-
 const formUserInfo = document.forms.info;
 const placesList = document.querySelector('.places-list');
 const buttonUserInfo = document.querySelector('.user-info__button');
@@ -69,8 +68,7 @@ api.getUserInfo().then((data) => {
         console.log(err);
     });
 
-const popup = new Popup(popupPic);
-// const cardList = new CardList(placesList, initialCards);
+    const popup = new Popup(popupPic);
     const cardList = new CardList(placesList);
 
 
@@ -79,7 +77,6 @@ const popup = new Popup(popupPic);
     const userInfo = new UserInfo(userAbout, userName, userInfoName, userInfoJob, userInfoAvatar);
     const popupButton = formUserInfo.querySelector('.popup-user-info__save-button');
     const formValidator = new FormValidator(formUserInfo, errorMessages);
-    // const formValidator = new FormValidator(errorMessages);
 
     formValidator.setEventListeners();
     popupButton.setAttribute('disabled', "");

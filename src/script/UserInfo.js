@@ -10,11 +10,6 @@ export class UserInfo {
         this.userInfoAvatar = userInfoAvatar;
     }
 
-    /*
-        Смущает простыня параметров в конструкторе. Это нормально? Можно как то аптимизировать?
-        Также не ясно как лучше поступить когда UserInfo инециализируется несколько с разным количеством параметров,
-        можно легко запутаться в порядке передоваемых параметров.
-    */
     setUserInfo() {
         this.userName.value = this.userInfoName.textContent;
         this.userAbout.value = this.userInfoJob.textContent;

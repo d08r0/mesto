@@ -1,8 +1,4 @@
 export class FormValidator {
-    /*
-        Надо исправить: не использовать глобальную переменную errorMessages в классе
-        а передавать её как параметр конструктора
-    */
 
     constructor(form, errorMessages) {
         this.form = form;
@@ -14,14 +10,8 @@ export class FormValidator {
             .form
             .addEventListener('input', this.setSubmitButtonState);
         this
-            // .form
-            // .addEventListener('input', this.checkInputValidity);
-
             .form.addEventListener('input', () => {
             this.checkInputValidity(event);
-
-            //event - Deprecated symbol used, consult docs for better alternative,
-            // но как покрасоте сделть без него пока не придумал
         });
     }
 

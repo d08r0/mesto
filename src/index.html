@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mesto</title>
-<!--    <link rel="stylesheet" href="./pages/index.css">-->
 
     <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.css %>">
 
@@ -13,8 +12,7 @@
 <body>
 <div class="root">
     <header class="header root__section">
-<!--        <img src="<%='./images/logo.svg'%>" alt="mesto logo" class="logo">-->
-        <img src="<%=require('./images/logo.svg')%>" alt="mesto logo" class="logo">
+        <img src="<%=require('./images/logo.svg').default%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
         <div class="user-info">
@@ -32,7 +30,7 @@
     </div>
     <div class="popup">
         <div class="popup__content">
-            <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
+            <img src="<%=require('./images/close.svg').default%>" alt="" class="popup__close">
             <h3 class="popup__title">Новое место</h3>
             <form class="popup__form" name="new">
                 <input id="name" type="text" name="name" class="popup__input popup__input_type_name" minlength="2" maxlength="30"
@@ -50,7 +48,7 @@
 </div>
 <div class="popup popup-edit-user-info">
     <div class="popup__content">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close popup-edit-user-info__close">
+        <img src="<%=require('./images/close.svg').default%>" alt="" class="popup__close popup-edit-user-info__close">
         <h3 class="popup__title">Редактировать профель</h3>
         <form class="popup__form" name="info">
             <input id="name-user" type="text" name="userName" class="popup__input" minlength="2" maxlength="30" required
@@ -68,7 +66,7 @@
 
 <div class="popup popup-pic">
     <div class="popup-pic__content">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close popup-pic__close">
+        <img src="<%=require('./images/close.svg').default%>" alt="" class="popup__close popup-pic__close">
         <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/tulinovka.jpg" alt=""
              class="popup-pic__image">
     </div>
@@ -79,11 +77,3 @@
 </html>
 
 <script src="<%= htmlWebpackPlugin.files.js %>"></script>
-<!--<script src="script/Api.js"></script>-->
-<!--<script src="script/cards.js"></script>-->
-<!--<script src="script/CardList.js"></script>-->
-<!--<script src="script/Card.js"></script>-->
-<!--<script src="script/Popup.js"></script>-->
-<!--<script src="script/FormValidator.js"></script>-->
-<!--<script src="script/UserInfo.js"></script>-->
-<!--<script src="script/script.js"></script>-->

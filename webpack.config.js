@@ -6,12 +6,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const webpack = require('webpack');
 
-new webpack.DefinePlugin({
-    'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-});
 
 module.exports = {
-    entry: './src/script/script.js',
+    entry: './src/script/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[chunkhash].js'
@@ -44,17 +41,18 @@ module.exports = {
                         name: './fonts/[name].[ext]'
                     },
                 }
-
             },
             {
                 test: /\.(jpg|jpeg|png|svg|webp)$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: './images/[name].[ext]',
-                        esModule: false
+                use: [
+
+                    'file-loader?name=./images/[name].[ext]',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {},
                     },
-                }
+
+                ],
             }
         ]
     },
@@ -77,6 +75,10 @@ module.exports = {
                 preset: ['default'],
             },
             canPrint: true
+        }),
+
+        new webpack.DefinePlugin({
+            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
 
         new WebpackMd5Hash()
