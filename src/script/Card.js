@@ -1,4 +1,8 @@
-class Card {
+import {Popup} from "./Popup";
+
+
+export class Card {
+
     constructor(name, link, id) {
         this.name = name;
         this.link = link;
@@ -36,8 +40,9 @@ class Card {
         return cardContainer;
     }
 
-    setEventListeners() {
 
+
+    setEventListeners() {
         this
             .cardElement
             .querySelector('.place-card__delete-icon')

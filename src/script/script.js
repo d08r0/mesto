@@ -1,4 +1,13 @@
+import  {Api} from './Api';
+import  {Popup} from './Popup';
+import  {Card} from './Card';
+import  {CardList} from './CardList';
+import  {FormValidator} from './FormValidator';
+import  {UserInfo} from './UserInfo';
+import "../pages/index.css";
+
 (function() {
+
 
 const formUserInfo = document.forms.info;
 const placesList = document.querySelector('.places-list');
@@ -37,24 +46,6 @@ const config = {
 
 const api = new Api(config);
 
-/*
-    Можно лучше: загрузку начальных данных сделать с использованием Promise.all
-    https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
-
-    Выглядит этот код примерно так:
-    Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
-        this.api.getUserInfo(),
-        this.api.getCardList()
-    ])    
-        .then((values)=>{    //попадаем сюда когда оба промиса будут выполнены
-            const [userData, initialCards] = values;
-            ....................
-        })
-        .catch((err)=>{     //попадаем сюда если один из промисов завершаться ошибкой
-            console.log(err);
-        })
-      
-*/
 api.getUserInfo().then((data) => {
     const userInfo = new UserInfo(userAbout, userName, userInfoName, userInfoJob, userInfoAvatar, data.name, data.about, data.avatar);
     userInfo.updateUserInfo();
@@ -79,9 +70,11 @@ api.getUserInfo().then((data) => {
     });
 
 const popup = new Popup(popupPic);
-const cardList = new CardList(placesList, initialCards);
+// const cardList = new CardList(placesList, initialCards);
+    const cardList = new CardList(placesList);
 
-function handlerRenderEditInfoPopup() {
+
+    function handlerRenderEditInfoPopup() {
     const popup = new Popup(popupEditUserInfo);
     const userInfo = new UserInfo(userAbout, userName, userInfoName, userInfoJob, userInfoAvatar);
     const popupButton = formUserInfo.querySelector('.popup-user-info__save-button');
@@ -153,80 +146,3 @@ formUserInfo.addEventListener('submit', handlerEditUserInfo);
 formCard.addEventListener('submit', handlerAddCardViaTheForm);
 
 }());
-
-/*
-
-    Здравствуйте, запросы на сервер отправляются, данные сохраняются, но к организации кода есть несколько замечаний:
-
-    Наша команда приносит извинения, при проверке работы на предыдущем спринте были пропущены следующие ошибки:
-        Надо исправить:
-        - не использовать глобальные переменные в классах, это привязывает класс к окружению в котором он используется, нужно
-        передавать все необходимое классу как параметры конструктора или методов
-
-        - когда код расположен в разных файлах, его нужно 
-        заключать в модули, т.к. если файлов будет много, то в разных 
-        файлах могут появится функции или переменные с одинаковыми именами,
-        они будут переопределять друг друга. Модуль должен предоставлять
-        наружу только минимально необходимый api
-        Для создании модулей можно воспользоваться IIFE, подробнее:
-        https://learn.javascript.ru/closures-module
-        https://habr.com/ru/company/ruvds/blog/419997/ 
-        Нужно обернуть в модули как минимум содержимое файла script.js
-        (function() {
-                .............. //содержимое файла script.js
-        }());
-        Оборачивание кода в IIFE не позволит глобально использовать переменные объявленные в нем и
-        и заставит явно передавать их туда, где они необходимы, как например в конструкторы классов
-    Данные исправления необходимо внести, т.к в дальнейшем вы можете столкнуться с проблемами 
-    при выполнении заданий и сдачи проектных и дипломной работы
-    Для исправления данных замечаний попросил добавить Вам дней к делайну
-
-    По 9 проектной работе:
-        Надо исправить:
-        - передавать отправляемые данные в методы класса Api как параметры метода, а не использовать глобальные переменные
-        - в конце всех запросов к серверу должна быть обработка ошибок блоком catch
-        - при сохранении профиля использовать данные которые вернул сервер, а не делать запрос данных ещё раз
-        - все изменения на странице должны происходить, только после того, как сервер ответил подтверждением
-        Закрывать попап редактирования профиля только после ответа сервера
-        - не создавать экземпляры классов каждый раз когда необходимо ими воспользоваться, а создать их один раз в начале 
-        скрипта и вызывать методы уже созданных экземпляров
-
-        Можно лучше:
-        - проверка ответа сервера и преобразование из json
-        дублируется во всех методах класса Api, лучше вынести в отдельный метод
-        - загрузку начальных данных сделать с использованием Promise.all
-
-
-*/
-
-/*
-  Критические замечания исправлены
-
-  Для закрепления полученных знаний советую сделать и оставшуюся часть задания.
-  Что бы реализовать оставшуюся часть задания необходимо разобраться с Promise.all
-  https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
-  Т.к. для отрисовки карточек нужен id пользователя, поэтому отрисовать мы сможем их только
-  после полученния с сервера данных пользователя
-  Выглядит этот код примерно так:
-    Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
-      this.api.getUserData(),
-      this.api.getInitialCards()
-    ])    
-      .then((values)=>{    //попадаем сюда когда оба промиса будут выполнены
-        const [userData, initialCards] = values;
-        ......................  //все данные получены, отрисовываем страницу
-      })
-      .catch((err)=>{     //попадаем сюда если один из промисов завершаться ошибкой
-        console.log(err);
-      })
-      
-
-  Если у Вас будет свободное время так же попробуйте освоить работу с сервером
-  применив async/await для работы с асинхронными запросами.
-  https://learn.javascript.ru/async-await
-  https://habr.com/ru/company/ruvds/blog/414373/
-  https://www.youtube.com/watch?v=SHiUyM_fFME
-  Это часто используется в реальной работе
-
-  Успехов в дальнейшем обучении!
-*/

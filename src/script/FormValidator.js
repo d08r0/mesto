@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
     /*
         Надо исправить: не использовать глобальную переменную errorMessages в классе
         а передавать её как параметр конструктора
