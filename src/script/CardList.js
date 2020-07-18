@@ -13,8 +13,7 @@ export class CardList {
     render() {
         this.cards.forEach(function (elem) {
             let id = 0;
-            if (elem._id === this.myId) {
-                console.log("TRUE");
+            if (elem['owner']['_id']=== this.myId) {
                 id = 1;
             } else {
                 id = 0;
