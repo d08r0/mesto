@@ -41,6 +41,7 @@ export class Card {
 
     setEventListeners() {
         const popupPic = document.querySelector('.popup-pic');
+        const popupPiImage = document.querySelector('.popup-pic__image');
         const popup = new Popup(popupPic);
 
         this
@@ -70,6 +71,7 @@ export class Card {
     }
 
     remove(event) {
+        const placesList = document.querySelector('.places-list');
 
         const card = event.target.parentElement.parentElement;
         if (card.parentElement.removeChild(card)) {
