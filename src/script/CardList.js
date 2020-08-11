@@ -1,4 +1,4 @@
-class CardList {
+export class CardList {
     constructor(container, cards, createCard, myId) {
         this.container = container;
         this.cards = cards;
@@ -13,8 +13,7 @@ class CardList {
     render() {
         this.cards.forEach(function (elem) {
             let id = 0;
-            if (elem.owner._id === this.myId) {
-                console.log("TRUE");
+            if (elem['owner']['_id']=== this.myId) {
                 id = 1;
             } else {
                 id = 0;

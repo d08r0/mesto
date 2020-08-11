@@ -1,4 +1,7 @@
-class Card {
+import {Popup} from "./Popup";
+
+export class Card {
+
     constructor(name, link, id) {
         this.name = name;
         this.link = link;
@@ -37,6 +40,9 @@ class Card {
     }
 
     setEventListeners() {
+        const popupPic = document.querySelector('.popup-pic');
+        const popupPiImage = document.querySelector('.popup-pic__image');
+        const popup = new Popup(popupPic);
 
         this
             .cardElement
@@ -65,23 +71,11 @@ class Card {
     }
 
     remove(event) {
+        const placesList = document.querySelector('.places-list');
 
         const card = event.target.parentElement.parentElement;
-        // if (event.target.classList.contains('place-card__delete-icon')) {
         if (card.parentElement.removeChild(card)) {
             event.stopPropagation();
-            /*
-                Надо исправить: не стоит использовать глобальную переменную в классе, т.к.
-                при дальнейшей разработке программы может получиться, что карточки будут вставляться 
-                в несколько разных контейнеров
-                Использование глобальных переменных считается плохим тоном при разработке программ.
-                Если что-то нужно использовать в классе нужно передавать это через
-                параметры конструктора или параметры метода. Так код получается более гибким и легче может переиспользоваться.
-                Но в данном случае достаточно просто воспользоваться parentNode элемента карточки
-                и удалять так:
-                    const card = event.target.parentElement.parentElement;
-                    card.parentElement.removeChild(card);
-            */
             placesList.removeChild(event.target.closest(".place-card"));
 
         }
